@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getUSER</title>
+</head>
+    <style>
+        table, th, td
+         {
+             border:1px solid black; 
+             border-collapse: collapse;
+             text-align: center;
+          
+         }
+         td a {
+                display: inline-block;
+                text-decoration: none;
+            }
+         a.btn-edit {
+            background-color: green;
+            color : white;
+            outline: none;
+            width: 60px;
+            border: none;
+            border-radius: 4px;
+            
+        }
+
+        a.btn-delete {
+            background-color: blue;
+            color : white;
+            outline: none;
+            width: 60px;
+            border: none;
+            border-radius: 4px;
+            
+        }
+
+
+    </style>
+<body>
+
+    <table style="width:100%">
+        <tr>
+
+          <th>username</th> 
+      
+          <th>email</th>
+          <th>phonenumber</th>
+          <th>roleId</th>
+          <th>action</th>
+      
+        </tr>
+       
+
+        <% for(let i=0; i < dataTable.length; i++) { %>
+            <tr>
+              <td><%= dataTable[i].username %></td>
+            
+              <td><%= dataTable[i].email %></td>
+              <td><%= dataTable[i].phonenumber %></td>
+              <td><%= dataTable[i].roleId %></td> 
+              <td>
+                   <a href="/edit-user?id=<%= dataTable[i].id %>" class="btn-edit"type="button"> Edit </a> 
+                   <a href="/delete-user?id=<%= dataTable[i].id %>" class="btn-delete" type="button"> Delete </a> 
+             </td>
+
+            </tr>
+         <% } %>
+        
+      </table>
+    
+</body>
+</html>
