@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     singername: DataTypes.STRING,
     description: DataTypes.TEXT,
     avatasinger: DataTypes.BLOB('long'),
-    tracksID: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+
+  
     
     
 

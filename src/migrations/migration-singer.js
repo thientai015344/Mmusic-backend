@@ -12,14 +12,11 @@ module.exports = {
       singername: {
         type: Sequelize.STRING
       },
-      avatasinger: {
-        type: Sequelize.BLOB('long')
-      },
-      tracksId: {
-        type: Sequelize.INTEGER
-      },
       description: {
         type: Sequelize.TEXT
+      },
+      avatasinger: {
+        type: Sequelize.BLOB('long')
       },
      
       createdAt: {
@@ -30,12 +27,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      userId:{
-        type: Sequelize.INTEGER
-      }
+    
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('singers');
   }
 };
+

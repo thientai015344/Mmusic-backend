@@ -21,8 +21,14 @@ module.exports = {
       phonenumber: {
         type: Sequelize.STRING
       },
+      displayname: {
+        type: Sequelize.STRING
+      },
       roleId: {
         type: Sequelize.STRING
+      },
+      avata: {
+        type: Sequelize.BLOB('long')
       },
       createdAt: {
         allowNull: false,

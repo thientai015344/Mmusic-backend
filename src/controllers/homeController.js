@@ -1,5 +1,6 @@
 import db from '../models'
 import USERcrudSevice from '../services/USERcrudSevice'
+import mediacrudSevice from '../services/mediacrudSevice'
 
 
 let getHomePage = async (req, res) =>{
@@ -8,36 +9,108 @@ let getHomePage = async (req, res) =>{
         return res.render('homepage.ejs',{
             data : JSON.stringify(data),
         });
+
+
         
     } catch (error) {
         console.log(error);
         
     }
+
+    
 }
 
-let getAboutPage =(req, res) =>{
+
+
+
+
+
+
+
+
+
+
+// ------------Singer------------
+
+
+let getSinger =(req, res) =>{
+    console.log("getsinger", getSinger)
+    return res.render('singer.ejs')
+}
+
+let postNewSinger = async (req, res) =>{
+    console.log('reqBody', req.body)
+    let message = await mediacrudSevice.createNewSinger(req.body)
+    console.log(message)
+    return res.send('create singer successfully')
+}
+
+
+
+
+// ------------Album------------
+
+let getAlbumPage =(req, res) =>{
+    return res.render('album.ejs')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------song------------
+
+
+let getsongPage =(req, res) =>{
     return res.render('test.ejs')
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------<<<<<<<<<.>>>>>>>>>>>>>>------------
+
+
+
+
+
+
+
+
+
+// ------------user------------
 
 let getUser =(req, res) =>{
     return res.render('createUser.ejs')
 }
-
 let postNewUSer = async (req, res) =>{
     let message = await USERcrudSevice.createNewUser(req.body)
     console.log(message)
-    return res.send('create user successfully')
+    return res.send('create user  successfully')
 }
-
 let getdisplayUSER = async (req, res) =>{
 
     let data = await USERcrudSevice.getAllUser();
     return res.render('displayUSER.ejs', {
         dataTable: data
     })
-
 }
-
 let getEditUSER = async (req, res) =>{
    let userId = req.query.id;
     
@@ -100,10 +173,21 @@ let deleteUSER = async (req, res) =>{
 
 
 
+
+
+
+
+
+
+
+
 module.exports = {
     getHomePage: getHomePage,
-    getAboutPage: getAboutPage,
+    getAlbumPage: getAlbumPage,
+    getsongPage: getsongPage,
     getUser : getUser,
+    getSinger : getSinger,
+    postNewSinger: postNewSinger,
     postNewUSer : postNewUSer,
     getdisplayUSER : getdisplayUSER,
     getEditUSER : getEditUSER,

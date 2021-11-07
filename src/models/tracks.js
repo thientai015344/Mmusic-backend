@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     lyric: DataTypes.CITEXT,                  
     listen: DataTypes.INTEGER,
     albumsId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+   
     
 
     

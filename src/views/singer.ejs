@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegisterSinger</title>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+   <div class="container md-6">
+        <div class="col-12 mt-3"> 
+            <form action="/post-singer" method="POST">
+                <div class="form-row">
+                    <div class="form-group col-6">
+                       <label for="inputUsername4">nameSinger</label>
+                       <input type="singername" class="form-control" id="inputsingername4" name="singername" placeholder="singername">
+                     </div>
+                     <div class="form-group col-6">
+                       <label for="inputdescription4">description</label>
+                       <input type="description" class="form-control" id="inputdescription4" name="description" placeholder="description">
+                     </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label for="inputAvatal4">avata</label>inputAvatal4
+                    <input type="file" class="form-control" id="inputAvatal4" name="Avata" placeholder="Avata">
+                  </div>
+                  
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create singer</button>
+              </form>
+        </div>
+   </div>
+    
+</body>
+</html>

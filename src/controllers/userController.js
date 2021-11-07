@@ -1,6 +1,33 @@
 import USERSevice from '../services/USERSevice';
 
 
+let createNewSinger = async (data) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+           
+            await db.singer.create({
+
+                singername: data.singername,
+                description: data.description,
+                avatasinger: data.avatasinger,
+               
+            })
+
+
+            resolve(' create new singer succeed!')
+           
+        } catch (error) {
+            reject(error);
+            
+        }
+
+    })
+ 
+
+    
+}
+
+
 let handleLogin = async(req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -89,6 +116,7 @@ let handleEditUser = async(req, res) => {
 
 
 module.exports ={
+    createNewSinger: createNewSinger,
     handleLogin: handleLogin,
     handleGetAllUSER: handleGetAllUSER,
     handleCreateNewUser: handleCreateNewUser,
