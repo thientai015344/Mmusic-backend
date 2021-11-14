@@ -79,14 +79,86 @@ let getAllSINGER = (singerId) => {
     
 }
 
+let updateSingerData  = (data) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            if(!data.id){
+                resolve({ 
+                    errCode: 2,
+                    errMessage:'missing required data'
+                })
+            }
+            let singer  = await db.singers.findOne({ 
+                where : {id : data.id},
+                raw : false
+            })
+            if(singer) {
+                singer.singername = data.singername,
+                singer.description = data.description,
+                singer.avatasinger = data.avatasinger,
+                await singer.save();
+                // singername: data.singername,
+                // description: data.description,
+                // avatasinger: data.avatasinger,
+               // });
+                resolve({
+                    errCode: 0,
+                    message:'updata successfully',
+                })
+               
+            } else{
+                resolve(
+                    {
+                        errCode: 1,
+                        errMessage: `singer's not found`
+                    }
+                );
+            }
+
+            
+        } catch (error) {
+            reject(error);
+            
+        }
+    })
+
+}
 
 
+let deleteSingerData = (id) => {
+    return new Promise(async(resolve, reject) => {
+        let singer = await db.singers.findOne({
+            where: { id: id}
+        })
+        if(!singer){
+            resolve ({ 
+                errCode: 2,
+                errMessage : `The singer isn't exist`
+            })
+        }
+       // awaxit singer.destroy();
+       await db.singers.destroy({
+           where: { id: id}
+       });
+        
+        resolve({ 
+            errCode: 0,
+            message : `delete successfully'`
+
+
+        })
+
+        
+    })
+
+}
 
 
 module.exports = {
    
     getAllSINGER: getAllSINGER,
     CreateNewSinger: CreateNewSinger,
-
+    updateSingerData: updateSingerData,
+    deleteSingerData: deleteSingerData,
     
 }

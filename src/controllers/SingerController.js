@@ -31,42 +31,23 @@ let handleCreateNewSinger = async (req, res) =>{
 
 }
 
+let handleEditSinger = async(req, res) => {
+    let data = req.body;
+    let message = await SINGERSevice.updateSingerData(data);
+    return res.status(200).json(message);
+}
 
-// let handleCreateNewUser = async (req, res) =>{
-//     let message = await USERSevice.CreateNewUser(req.body);
-//     return res.status(200).json(message);
+let handleDeleteSinger = async(req, res) => {
+    if(!req.body.id){
+        return res.status(200).json({
+                errCode: 1,
+                errMessage: 'missing required parameter !'
 
-// }
-
-// //let handleEditUser async (req, res) =>{}
-
-
-// let handleDeleteUser = async (req, res) =>{
-//     if(!req.body.id){
-//         return res.status(200).json({
-//              errCode: 1,
-//              errMessage: 'missing required parameter !'
-
-//         })
-//     }
-//     let message = await USERSevice.deleteUser(req.body.id);
-//     return res.status(200).json(message);
-// }
-
-// let handleEditUser = async(req, res) => {
-//     let data = req.body;
-//     let message = await USERSevice.updateUserData(data);
-//     return res.status(200).json(message);
-    
- 
-
-// }
-
-
-
-
-
-
+        })
+    }
+    let message = await SINGERSevice.deleteSingerData(req.body.id);
+    return res.status(200).json(message);
+}
 
 
 
@@ -77,4 +58,6 @@ let handleCreateNewSinger = async (req, res) =>{
 module.exports ={
     handleGetAllSinger: handleGetAllSinger,
     handleCreateNewSinger: handleCreateNewSinger,
+    handleEditSinger: handleEditSinger,
+    handleDeleteSinger: handleDeleteSinger,
 }

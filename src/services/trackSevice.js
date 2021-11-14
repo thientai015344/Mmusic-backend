@@ -2,13 +2,13 @@ import db from '../models'
 
 
 
-let checkAlbumname = (nameAlbum) => {
+let checkTrackname= (namesong) => {
     return new Promise(async(resolve, reject) =>{
         try {
-            let album = await db.albums.findOne({
-              where: { nameAlbum: nameAlbum}
+            let track = await db.tracks.findOne({
+              where: { namesong: namesong}
             })
-            if(album){
+            if(track){
                 resolve(true);
             }
             else{
@@ -22,24 +22,24 @@ let checkAlbumname = (nameAlbum) => {
 }
 
 
-let CreateNewAlbum= (data) =>{
+let CreateNewTrack = (data) =>{
     return new Promise(async(resolve, reject) =>{
         try {
-            let check = await checkAlbumname(data.nameAlbum);
+            let check = await checkTrackname(data.namesong);
             if(check==true){
                 
                 resolve({
                     errCode : 1, 
-                    errMessage: 'Album đã tồn tại !'
+                    errMessage: 'Track đã tồn tại !'
                 })
                 
             }else{
                 
-                await db.albums.create({
+                await db.tracks.create({
     
-                    nameAlbum: data.nameAlbum,
-                    imgAlbum: data.imgAlbum,
-                    // avataalbum: data.avataalbum,
+                    namesong: data.namesong,
+                    imgsong: data.imgsong,
+                    filetrack: data.filetrack,
 
                 })
     
@@ -57,21 +57,21 @@ let CreateNewAlbum= (data) =>{
 }
 
 
-let getAllAlbum = (albumId) => {
+let getAllTrack = (trackId) => {
 
     return new Promise(async(resolve, reject) =>{
         try {
-            let albums = '';
-            if(albumId === 'ALL') {
-                albums = await db.albums.findAll({
+            let tracks = '';
+            if(trackId === 'ALL') {
+                tracks = await db.tracks.findAll({
                 });        
             }           
-            if(albumId && albumId !== 'ALL') {
-                albums = await db.albums.findOne({
-                    where:{id : albumId},                   
+            if(trackId && trackId !== 'ALL') {
+                tracks = await db.tracks.findOne({
+                    where:{id : trackId},                   
                 })                  
             }
-            resolve(albums);      
+            resolve(tracks);      
         } catch (error) {
             reject(error);     
         }
@@ -79,7 +79,7 @@ let getAllAlbum = (albumId) => {
     
 }
 
-let updateAlbumData  = (data) => {
+let updateTrackData  = (data) => {
     return new Promise(async(resolve, reject) => {
         try {
             if(!data.id){
@@ -88,18 +88,18 @@ let updateAlbumData  = (data) => {
                     errMessage:'missing required data'
                 })
             }
-            let album  = await db.albums.findOne({ 
+            let track  = await db.tracks.findOne({ 
                 where : {id : data.id},
                 raw : false
             })
-            if(album) {
-                album.nameAlbum = data.nameAlbum,
-                album.imgAlbum = data.imgAlbum,
-                // album.avataalbum = data.avataalbum,
-                await album.save();
-                // nameAlbum: data.nameAlbum,
-                // imgAlbum: data.imgAlbum,
-                // avataalbum: data.avataalbum,
+            if(track) {
+                track.namesong = data.namesong,
+                track.imgsong = data.imgsong,
+                track.filetrack = data.filetrack,
+                await track.save();
+                // NameSong: data.NameSong,
+                // imgsong: data.imgsong,
+                // filetrack: data.filetrack,
                // });
                 resolve({
                     errCode: 0,
@@ -110,7 +110,7 @@ let updateAlbumData  = (data) => {
                 resolve(
                     {
                         errCode: 1,
-                        errMessage: `album's not found`
+                        errMessage: `track's not found`
                     }
                 );
             }
@@ -125,19 +125,19 @@ let updateAlbumData  = (data) => {
 }
 
 
-let deleteAlbumData = (id) => {
+let deleteTrackData = (id) => {
     return new Promise(async(resolve, reject) => {
-        let album = await db.albums.findOne({
+        let track = await db.tracks.findOne({
             where: { id: id}
         })
-        if(!album){
+        if(!track){
             resolve ({ 
                 errCode: 2,
-                errMessage : `The album isn't exist`
+                errMessage : `The track isn't exist`
             })
         }
-       // awaxit album.destroy();
-       await db.albums.destroy({
+       // awaxit track.destroy();
+       await db.tracks.destroy({
            where: { id: id}
        });
         
@@ -156,9 +156,9 @@ let deleteAlbumData = (id) => {
 
 module.exports = {
    
-    getAllAlbum: getAllAlbum,
-    CreateNewAlbum:  CreateNewAlbum,
-    updateAlbumData: updateAlbumData,
-    deleteAlbumData: deleteAlbumData,
+    getAllTrack: getAllTrack,
+    CreateNewTrack:  CreateNewTrack,
+    updateTrackData: updateTrackData,
+    deleteTrackData: deleteTrackData,
     
 }
