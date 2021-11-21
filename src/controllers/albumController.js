@@ -20,6 +20,30 @@ let handleGetAllAlbum = async(req, res) => {
 
 }
 
+
+let handleGetDetailAlbum = async(req, res) => {
+    try {
+            let info = await AlbumSevice.handleGetDetailAlbumById(req.query.id)
+            return res.status(200).json(
+                info
+            )
+        
+    } catch (error) {
+        console.log(error)
+
+        return res.status(200).json(
+            {
+                errCode : -1,
+                errMessage :'Error from the server'
+
+            }
+        )
+        
+    }
+}
+
+
+
 let handleCreateNewAlbum = async (req, res) =>{
     let message = await AlbumSevice.CreateNewAlbum(req.body);
     return res.status(200).json(message);
@@ -55,4 +79,5 @@ module.exports ={
     handleCreateNewAlbum: handleCreateNewAlbum,
     handleEditAlbum: handleEditAlbum,
     handleDeleteAlbum: handleDeleteAlbum,
+    handleGetDetailAlbum: handleGetDetailAlbum,
 }

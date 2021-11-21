@@ -10,9 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      singers.hasOne(models.tracks,{foreignKey: 'SingerID'});
       // define association here
     }
   };
+  
   singers.init({
     singername: DataTypes.STRING,
     description: DataTypes.TEXT,

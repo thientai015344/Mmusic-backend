@@ -1,3 +1,4 @@
+
 import db from '../models'
 
 
@@ -78,6 +79,43 @@ let getAllAlbum = (albumId) => {
     })
     
 }
+
+
+let handleGetDetailAlbumById = (albumId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+
+            if(!albumId){
+                resolve({ 
+                    error: 1,
+                    errMessage : 'missing parameter + ' + albumId
+                })
+            }
+            else {
+                let data = await db.albums.findOne({
+                    where: { id : albumId },
+                  
+                    include: [
+                       {model: db.tracks}
+                    ],
+                    raw: true,
+                    nest: true,
+                })
+
+                resolve({
+                    error: 0,
+                    data: data
+                })
+            }
+        
+        } catch (error) {
+            console.log(error)
+            
+        }
+    })
+}
+
+
 
 let updateAlbumData  = (data) => {
     return new Promise(async(resolve, reject) => {
@@ -160,5 +198,6 @@ module.exports = {
     CreateNewAlbum:  CreateNewAlbum,
     updateAlbumData: updateAlbumData,
     deleteAlbumData: deleteAlbumData,
+    handleGetDetailAlbumById: handleGetDetailAlbumById,
     
 }

@@ -25,6 +25,26 @@ let handleGetAllSinger = async(req, res) => {
 
 }
 
+let handleGetAllSingerForTrack = async(req, res) => {
+    let id = req.query.id; 
+    if(!id){
+        return res.status(200).json({
+            
+            errCode : 1,
+            errMessage :'missing required parameters',
+            singer:[]
+        })
+    }
+    let singer = await SINGERSevice.getAllSingerForTrack(id);
+    return res.status(200).json({
+        errCode : 0,
+        errMessage :'ok',
+        singer
+    })
+
+}
+
+
 let handleCreateNewSinger = async (req, res) =>{
     let message = await SINGERSevice.CreateNewSinger(req.body);
     return res.status(200).json(message);
@@ -57,6 +77,7 @@ let handleDeleteSinger = async(req, res) => {
 
 module.exports ={
     handleGetAllSinger: handleGetAllSinger,
+    handleGetAllSingerForTrack: handleGetAllSingerForTrack,
     handleCreateNewSinger: handleCreateNewSinger,
     handleEditSinger: handleEditSinger,
     handleDeleteSinger: handleDeleteSinger,

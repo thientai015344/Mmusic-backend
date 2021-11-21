@@ -8,7 +8,7 @@ let handleGetAllTrack = async(req, res) => {
         return res.status(200).json({
             errCode : 1,
             errMessage :'missing required parameters',
-            singer:[]
+            track:[]
         })
     }
     let track = await trackSevice.getAllTrack(id);
@@ -19,6 +19,10 @@ let handleGetAllTrack = async(req, res) => {
     })
 
 }
+
+
+
+
 
 let handleCreateNewTrack = async (req, res) =>{
     let message = await trackSevice.CreateNewTrack(req.body);
@@ -55,4 +59,5 @@ module.exports ={
     handleCreateNewTrack: handleCreateNewTrack,
     handleEditTrack: handleEditTrack,
     handleDeleteTrack: handleDeleteTrack,
+
 }

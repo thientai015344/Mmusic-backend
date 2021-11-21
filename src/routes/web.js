@@ -43,6 +43,7 @@ let initWebRoutes = (app) => {
 
 
     router.get('/api/get-all-singer', SingerController.handleGetAllSinger);
+    router.get('/api/get-all-singerfortrack', SingerController.handleGetAllSingerForTrack);
     router.post('/api/create-new-singer', SingerController.handleCreateNewSinger);
     router.put('/api/edit-singer', SingerController.handleEditSinger);
     router.delete('/api/delete-singer', SingerController.handleDeleteSinger);
@@ -57,6 +58,7 @@ let initWebRoutes = (app) => {
 
 
     router.get('/api/get-all-album', albumController.handleGetAllAlbum);
+    router.get('/api/get-detail-album-by-id', albumController.handleGetDetailAlbum);
     router.post('/api/create-new-album', albumController.handleCreateNewAlbum);
     router.put('/api/edit-album', albumController.handleEditAlbum);
     router.delete('/api/delete-album', albumController.handleDeleteAlbum);

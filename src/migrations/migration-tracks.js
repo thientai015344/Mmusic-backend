@@ -27,12 +27,11 @@ module.exports = {
       lyric: {
         type: Sequelize.STRING
       },
-      listens: {
-        type: Sequelize.STRING
-      },
-      albumsId: {
+      listen: {
+        allowNull: true,
         type: Sequelize.INTEGER
       },
+     
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

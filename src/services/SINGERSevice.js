@@ -79,6 +79,35 @@ let getAllSINGER = (singerId) => {
     
 }
 
+let getAllSingerForTrack = (singerId) => {
+
+    return new Promise(async(resolve, reject) =>{
+        try {
+            let singers = '';
+            if(singerId === 'ALL') {
+                singers = await db.singers.findAll({
+                    attributes:{
+                        exclude: ['description', 'avatasinger','createdAt', 'updatedAt'],
+                    }
+
+                });        
+            }           
+            if(singerId && singerId !== 'ALL') {
+                singers = await db.singers.findOne({
+                    where:{id : singerId},  
+                    attributes:{
+                        exclude: ['description', 'avatasinger','createdAt', 'updatedAt'],
+                    }                 
+                })                  
+            }
+            resolve(singers);      
+        } catch (error) {
+            reject(error);     
+        }
+    })
+    
+}
+
 let updateSingerData  = (data) => {
     return new Promise(async(resolve, reject) => {
         try {
@@ -141,6 +170,7 @@ let deleteSingerData = (id) => {
            where: { id: id}
        });
         
+       
         resolve({ 
             errCode: 0,
             message : `delete successfully'`
@@ -160,5 +190,6 @@ module.exports = {
     CreateNewSinger: CreateNewSinger,
     updateSingerData: updateSingerData,
     deleteSingerData: deleteSingerData,
+    getAllSingerForTrack : getAllSingerForTrack,
     
 }

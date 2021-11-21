@@ -40,6 +40,11 @@ let CreateNewTrack = (data) =>{
                     namesong: data.namesong,
                     imgsong: data.imgsong,
                     filetrack: data.filetrack,
+                    duration: data.duration,
+                    SingerID: data.SingerID,
+                    lyric: data.lyric,
+                    listen: data.listen,
+                
 
                 })
     
@@ -64,11 +69,25 @@ let getAllTrack = (trackId) => {
             let tracks = '';
             if(trackId === 'ALL') {
                 tracks = await db.tracks.findAll({
+                    
+                    include: [
+                        {model: db.singers , actributes:['singername'] 
+                        }
+                     ],
+                     raw: true,
+                     nest: true,    
                 });        
             }           
             if(trackId && trackId !== 'ALL') {
                 tracks = await db.tracks.findOne({
-                    where:{id : trackId},                   
+                    where:{id : trackId},  
+
+                    include: [
+                        {model: db.singers , actributes:['singername'] 
+                        }
+                     ],
+                     raw: true,
+                     nest: true,                 
                 })                  
             }
             resolve(tracks);      
