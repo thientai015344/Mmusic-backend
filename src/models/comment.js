@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      comments.hasOne(models.user,{ foreignKey: "userId",});
+      comments.hasOne(models.tracks,{ through: "Comment_track",as: "tracks",foreignKey: "commentId",});
+
+
+
       // define association here
     }
   };

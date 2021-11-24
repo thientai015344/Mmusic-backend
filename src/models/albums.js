@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-       
-        albums.belongsTo(models.tracks,{foreignKey: 'tracksId'});
+
+      
+      albums.belongsToMany(models.tracks,{ through: "Album_track",as: "tracks",foreignKey: "albumId",});
       // define association here
     }
   };
   albums.init({
     nameAlbum: DataTypes.STRING,
     imgAlbum: DataTypes.BLOB('long'),
-    tracksId: DataTypes.INTEGER,
 
 
     

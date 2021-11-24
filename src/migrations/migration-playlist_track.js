@@ -2,15 +2,12 @@
 module.exports = {
 
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('comments', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
+    await queryInterface.createTable('Playlist_track', {
+      playlistId: {
         type: Sequelize.INTEGER
       },
-      contentcmt: {
-        type: Sequelize.TEXT
+      trackId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -20,12 +17,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      userId:{
-        type: Sequelize.INTEGER
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('comments');
+    await queryInterface.dropTable('Playlist_track');
   }
 };

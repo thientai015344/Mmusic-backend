@@ -21,7 +21,7 @@ module.exports = {
       phonenumber: {
         type: Sequelize.STRING
       },
-      displayname: {
+      interfaceName: {
         type: Sequelize.STRING
       },
       roleId: {
