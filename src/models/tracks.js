@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       tracks.belongsToMany(models.singers,{ through: "singer_track",as: "singers",foreignKey: "trackId",});
       tracks.belongsToMany(models.playlists,{ through: "Playlist_track",as: "playlists",foreignKey: "trackId",});
       tracks.belongsToMany(models.albums,{ through: "Album_track",as: "albums",foreignKey: "trackId",});
-      tracks.belongsToMany(models.comments,{ through: "Comment_track",as: "comments",foreignKey: "trackId",});
+      tracks.hasMany(models.comments,{ foreignKey: "trackId",});
 
 
 

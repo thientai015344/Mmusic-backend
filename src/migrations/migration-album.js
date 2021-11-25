@@ -15,11 +15,6 @@ module.exports = {
       imgAlbum: {
         type: Sequelize.BLOB('long')
       },
-    
-      tracksId: {
-        type: Sequelize.INTEGER
-      },
-     
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

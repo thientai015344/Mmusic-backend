@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       comments.hasOne(models.user,{ foreignKey: "userId",});
-      comments.hasOne(models.tracks,{ through: "Comment_track",as: "tracks",foreignKey: "commentId",});
+      comments.hasOne(models.tracks,{foreignKey: "trackId",});
 
 
 

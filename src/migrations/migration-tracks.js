@@ -21,9 +21,6 @@ module.exports = {
       duration: {
         type: Sequelize.STRING
       },
-      SingerID: {
-        type: Sequelize.INTEGER
-      },
       lyric: {
         type: Sequelize.STRING
       },

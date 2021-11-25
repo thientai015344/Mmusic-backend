@@ -15,9 +15,6 @@ module.exports = {
       imgplaylist: {
         type: Sequelize.BLOB('long')
       },
-      trackId: {
-        type: Sequelize.INTEGER
-      },
       userId: {
         type: Sequelize.INTEGER
       },
