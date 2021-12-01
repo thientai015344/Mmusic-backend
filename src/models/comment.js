@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      comments.hasOne(models.user,{ foreignKey: "userId",});
-      comments.hasOne(models.tracks,{foreignKey: "trackId",});
+      comments.belongsTo(models.user,{ foreignKey: "userId",});
+      comments.belongsTo(models.tracks,{foreignKey: "trackId",});
 
 
 
@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   comments.init({
-    contentcmt: DataTypes.TEXT,
     trackId: DataTypes.INTEGER,
+    contentcmt: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     
   }, {

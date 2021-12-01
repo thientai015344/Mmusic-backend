@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
       
-      albums.belongsToMany(models.tracks,{ through: "Album_track",as: "tracks",foreignKey: "albumId",});
+    //  albums.belongsToMany(models.tracks,{ through: "Album_track",as: "tracks",foreignKey: "albumId",});
       // define association here
     }
   };

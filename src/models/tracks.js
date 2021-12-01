@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      tracks.belongsToMany(models.singers,{ through: "singer_track",as: "singers",foreignKey: "trackId",});
-      tracks.belongsToMany(models.playlists,{ through: "Playlist_track",as: "playlists",foreignKey: "trackId",});
+      tracks.belongsTo(models.singers,{ foreignKey: "singerId",});  
       tracks.belongsToMany(models.albums,{ through: "Album_track",as: "albums",foreignKey: "trackId",});
       tracks.hasMany(models.comments,{ foreignKey: "trackId",});
 
@@ -24,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   tracks.init({
     namesong: DataTypes.STRING,
     imgsong: DataTypes.BLOB('long'),
-    filetrack: DataTypes.BLOB('long'),
+    filetrack: DataTypes.STRING,
     duration: DataTypes.STRING,
-    SingerID: DataTypes.INTEGER,
+    singerId: DataTypes.INTEGER,
     lyric: DataTypes.CITEXT,                  
     listen: DataTypes.INTEGER,
   

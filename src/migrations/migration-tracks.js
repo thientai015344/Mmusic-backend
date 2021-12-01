@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.BLOB('long')
       },
       filetrack: {
-        type: Sequelize.BLOB('long')
+        type: Sequelize.STRING
       },
       duration: {
         type: Sequelize.STRING
@@ -28,7 +28,9 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER
       },
-     
+      singerId: { 
+        type: Sequelize.INTEGER
+      },   
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

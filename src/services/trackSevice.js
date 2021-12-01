@@ -23,7 +23,9 @@ let checkTrackname= (namesong) => {
 
 
 let CreateNewTrack = (data) =>{
+
     return new Promise(async(resolve, reject) =>{
+
         try {
             let check = await checkTrackname(data.namesong);
             if(check==true){
@@ -41,12 +43,12 @@ let CreateNewTrack = (data) =>{
                     imgsong: data.imgsong,
                     filetrack: data.filetrack,
                     duration: data.duration,
-                    SingerID: data.SingerID,
+                    singerId: data.SingerID,
                     lyric: data.lyric,
-                    listen: data.listen,
-                
-
-                })
+                    listen: data.listen,   
+                    
+                }, 
+                )
     
                 resolve({
                     errCode :0 ,
@@ -99,6 +101,7 @@ let getAllTrack = (trackId) => {
 }
 
 let updateTrackData  = (data) => {
+
     return new Promise(async(resolve, reject) => {
         try {
             if(!data.id){
@@ -115,11 +118,10 @@ let updateTrackData  = (data) => {
                 track.namesong = data.namesong,
                 track.imgsong = data.imgsong,
                 track.filetrack = data.filetrack,
+                track.duration = data.duration
+                track.lyric = data.lyric
                 await track.save();
-                // NameSong: data.NameSong,
-                // imgsong: data.imgsong,
-                // filetrack: data.filetrack,
-               // });
+                
                 resolve({
                     errCode: 0,
                     message:'updata successfully',

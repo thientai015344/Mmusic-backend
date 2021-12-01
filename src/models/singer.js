@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      singers.belongsToMany(models.tracks,{ through: "singer_track",as: "tracks",foreignKey: "singerId",});
-      
+      singers.hasMany(models.tracks,{ foreignKey: "singerId",});  
       // define association here
     }
   };
@@ -21,11 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     avatasinger: DataTypes.BLOB('long'),
 
-  
-    
-    
-
-    
   }, {
     sequelize,
     modelName: 'singers',
