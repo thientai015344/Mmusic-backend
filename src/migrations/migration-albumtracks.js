@@ -2,17 +2,17 @@
 module.exports = {
 
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Album_track', {
+    await queryInterface.createTable('albumtracks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      albumId: {
+      trackId:{
         type: Sequelize.INTEGER
       },
-      trackId: {
+      albumId:{
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -23,9 +23,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      
+      
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Album_track');
+    await queryInterface.dropTable('albumtracks');
   }
 };

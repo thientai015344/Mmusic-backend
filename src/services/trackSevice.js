@@ -73,8 +73,8 @@ let getAllTrack = (trackId) => {
                 tracks = await db.tracks.findAll({
                     
                     include: [
-                        {model: db.singers , actributes:['singername'] 
-                        }
+                        { model: db.singers , actributes:['singername'] }
+                        
                      ],
                      raw: true,
                      nest: true,    
@@ -85,8 +85,8 @@ let getAllTrack = (trackId) => {
                     where:{id : trackId},  
 
                     include: [
-                        {model: db.singers , actributes:['singername'] 
-                        }
+                        {model: db.singers , actributes:['singername'] } 
+
                      ],
                      raw: true,
                      nest: true,                 
@@ -175,11 +175,90 @@ let deleteTrackData = (id) => {
 }
 
 
+let CreateNewComment = (data) =>{
+
+    return new Promise(async(resolve, reject) =>{
+
+        try {
+            
+            if(data){
+                
+                await db.comments.create({
+                    userId : data.userId,
+                    contentcmt : data.contentcmt,
+                    trackId  : data.trackId
+                }, 
+                )
+    
+                resolve({
+                    errCode :0 ,
+                    message : 'create succeed!'
+    
+                })
+
+            }
+            
+        }catch (error) {
+        reject (error); 
+            
+        }
+    })
+}
+
+
+let getCommentTrack =(inputId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            
+
+            if(!inputId){
+                resolve({
+                    error: 1,
+                    errMessage:' missing required parameter'
+                })
+            }
+            else {
+                let data = await db.tracks .findAll({
+
+                    where:{
+                        id : inputId
+                    },  
+                    actributes : ['namesong']
+                    , 
+                    include: [
+                        {model: db.comments,  include: [db.user] } 
+
+                     ],
+                     raw: true,
+                     nest: true,  
+                })
+                resolve({
+                    errCode: 0,
+                    data: data
+                })
+            }
+            
+        } catch (error) {
+
+            reject(error);
+            
+        }
+    })
+}
+
+
+
+
+
+
+
 module.exports = {
    
     getAllTrack: getAllTrack,
     CreateNewTrack:  CreateNewTrack,
     updateTrackData: updateTrackData,
     deleteTrackData: deleteTrackData,
+    CreateNewComment: CreateNewComment,
+    getCommentTrack: getCommentTrack,
     
 }

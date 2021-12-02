@@ -20,7 +20,27 @@ let handleGetAllTrack = async(req, res) => {
 
 }
 
+let getCommentTrack = async (req, res) =>{
+    try {
+        
+    let comment = await trackSevice.getCommentTrack(req.query.id);
+        return res.status(200).json(comment);
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode : -1,
+            errMessage :'Error from sever'
+        })
+        
+    }
+}
 
+
+let handleCreateNewComment = async (req, res) =>{
+    let message = await trackSevice.CreateNewComment(req.body);
+    return res.status(200).json(message);
+
+}
 
 
 
@@ -54,10 +74,12 @@ let handleDeleteTrack = async(req, res) => {
 
 
 
+
 module.exports ={
     handleGetAllTrack: handleGetAllTrack,
+    handleCreateNewComment: handleCreateNewComment,
     handleCreateNewTrack: handleCreateNewTrack,
     handleEditTrack: handleEditTrack,
     handleDeleteTrack: handleDeleteTrack,
-
+    getCommentTrack: getCommentTrack,
 }

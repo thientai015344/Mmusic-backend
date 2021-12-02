@@ -69,6 +69,13 @@ let handleDeleteAlbum = async(req, res) => {
 }
 
 
+////////////////////////////////////////////
+let handleAddTrack =  async (req, res) =>{
+    let message = await AlbumSevice.addTrackForAlbum(req.body);
+    return res.status(200).json(message);
+
+}
+////////////////////////////////////////////
 
 
 
@@ -80,4 +87,5 @@ module.exports ={
     handleEditAlbum: handleEditAlbum,
     handleDeleteAlbum: handleDeleteAlbum,
     handleGetDetailAlbum: handleGetDetailAlbum,
+    handleAddTrack : handleAddTrack,
 }

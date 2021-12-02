@@ -22,6 +22,9 @@ module.exports = {
       },
       userId:{
         type: Sequelize.INTEGER
+      },
+      trackId:{
+        type: Sequelize.INTEGER
       }
     });
   },

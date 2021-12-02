@@ -88,11 +88,24 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-all-track', trackController.handleGetAllTrack);
     router.post('/api/create-new-track', trackController.handleCreateNewTrack);
+    router.post('/api/create-new-comment', trackController.handleCreateNewComment);
     router.put('/api/edit-track', trackController.handleEditTrack);
+    router.get('/api/get-comments-track', trackController.getCommentTrack);
     router.delete('/api/delete-track', trackController.handleDeleteTrack);
 
 
     //--------------------track---------------------//
+    
+
+     //--------------------Album_has_track---------------------//
+
+
+
+     router.post('/api/create-new-track-for-album', albumController.handleAddTrack);
+     //router.delete('/api/delete-track', albumController.handleDeleteTrack);
+ 
+ 
+     //--------------------Album_has_track---------------------//
 
 
 

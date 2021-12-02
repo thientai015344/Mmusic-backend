@@ -64,7 +64,6 @@ let handleGetAllUSER = async(req, res) => {
         })
     }
     let user = await USERSevice.getAllUsers(id);
-    console.log('ckecj user', user)
     return res.status(200).json({
         errCode : 0,
         errMessage :'ok',

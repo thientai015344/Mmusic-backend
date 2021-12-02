@@ -24,6 +24,7 @@ let checkAlbumname = (nameAlbum) => {
 
 
 let CreateNewAlbum= (data) =>{
+
     return new Promise(async(resolve, reject) =>{
         try {
             let check = await checkAlbumname(data.nameAlbum);
@@ -39,7 +40,7 @@ let CreateNewAlbum= (data) =>{
                 await db.albums.create({
     
                     nameAlbum: data.nameAlbum,
-                    imgAlbum: data.imgAlbum,
+                    imgAlbum: data.imgalbum,
                     // avataalbum: data.avataalbum,
 
                 })
@@ -118,6 +119,7 @@ let handleGetDetailAlbumById = (albumId) => {
 
 
 let updateAlbumData  = (data) => {
+
     return new Promise(async(resolve, reject) => {
         try {
             if(!data.id){
@@ -132,13 +134,10 @@ let updateAlbumData  = (data) => {
             })
             if(album) {
                 album.nameAlbum = data.nameAlbum,
-                album.imgAlbum = data.imgAlbum,
-                // album.avataalbum = data.avataalbum,
+                album.imgAlbum = data.imgalbum
+               
                 await album.save();
-                // nameAlbum: data.nameAlbum,
-                // imgAlbum: data.imgAlbum,
-                // avataalbum: data.avataalbum,
-               // });
+               
                 resolve({
                     errCode: 0,
                     message:'updata successfully',
@@ -192,12 +191,58 @@ let deleteAlbumData = (id) => {
 }
 
 
+
+
+    let addTrackForAlbum = (data) =>{
+
+        return new Promise(async(resolve, reject) =>{
+    
+            try {
+                
+                if(data){
+                    
+                    await db.albumtracks.create({
+                        albumId : data.albumId,
+
+                        trackId  : data.trackId
+                    }, 
+                    )
+        
+                    resolve({
+                        errCode :0 ,
+                        message : 'create succeed!'
+        
+                    })
+    
+                }
+                
+            }catch (error) {
+            reject (error); 
+                
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = {
    
     getAllAlbum: getAllAlbum,
     CreateNewAlbum:  CreateNewAlbum,
     updateAlbumData: updateAlbumData,
     deleteAlbumData: deleteAlbumData,
+    addTrackForAlbum : addTrackForAlbum,
     handleGetDetailAlbumById: handleGetDetailAlbumById,
     
 }
