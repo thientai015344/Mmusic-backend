@@ -194,27 +194,28 @@ let deleteAlbumData = (id) => {
 
 
     let addTrackForAlbum = (data) =>{
-
+           
         return new Promise(async(resolve, reject) =>{
     
             try {
-                
-                if(data){
-                    
-                    await db.albumtracks.create({
-                        albumId : data.albumId,
-
-                        trackId  : data.trackId
-                    }, 
-                    )
-        
-                    resolve({
-                        errCode :0 ,
-                        message : 'create succeed!'
-        
+                if(!data.albumHasTrack){
+                    resolve({ 
+                        errCode: 1,
+                        message : `missing required pramate'`
                     })
-    
+                }else{
+                    let tracss = data.albumHasTrack
+                    if(tracss && tracss.length >0){
+
+                        tracss = tracss.map(item =>{
+                            return item;
+                        })
+
+                    }
+                    await db.albumtracks.bulkCreate(tracss)
                 }
+    
+                
                 
             }catch (error) {
             reject (error); 
