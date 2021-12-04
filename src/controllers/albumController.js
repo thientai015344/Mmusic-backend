@@ -23,10 +23,18 @@ let handleGetAllAlbum = async(req, res) => {
 
 let handleGetDetailAlbum = async(req, res) => {
     try {
-            let info = await AlbumSevice.handleGetDetailAlbumById(req.query.id)
-            return res.status(200).json(
-                info
+            let detailAlbum = await AlbumSevice.handleGetDetailAlbumById(req.query.id)
+            return res.status(200).json({
+                     errCode : 0,
+                    errMessage :'ok',
+                    detailAlbum
+            }
+                
+
+                
             )
+
+           
         
     } catch (error) {
         console.log(error)
@@ -35,7 +43,7 @@ let handleGetDetailAlbum = async(req, res) => {
             {
                 errCode : -1,
                 errMessage :'Error from the server'
-
+                
             }
         )
         

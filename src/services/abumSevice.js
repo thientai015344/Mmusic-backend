@@ -93,20 +93,17 @@ let handleGetDetailAlbumById = (albumId) => {
                 })
             }
             else {
-                let data = await db.albums.findOne({
+                let detailAlbum = await db.albums.findAll({
                     where: { id : albumId },
                   
                     include: [
-                       {model: db.tracks}
+                       {model: db.albumtracks, include :[{model: db.tracks ,include: [db.singers]}]}
                     ],
                     raw: true,
                     nest: true,
                 })
 
-                resolve({
-                    error: 0,
-                    data: data
-                })
+                resolve(detailAlbum)
             }
         
         } catch (error) {
