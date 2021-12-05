@@ -103,7 +103,7 @@ let handleGetDetailAlbumById = (albumId) => {
                     nest: true,
                 })
 
-                resolve(detailAlbum)
+                resolve(detailAlbum) 
             }
         
         } catch (error) {
