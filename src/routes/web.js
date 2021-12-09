@@ -37,13 +37,14 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-userAdm', userController.handleEditUser);
     router.delete('/api/delete-userAdm', userController.handleDeleteUser);
 
-
+                                                                                            
 
     //--------------------singer---------------------//
 
 
     router.get('/api/get-all-singer', SingerController.handleGetAllSinger);
     router.get('/api/get-all-singerfortrack', SingerController.handleGetAllSingerForTrack);
+    router.get('/api/get-detail-singer', SingerController.handleGetDetailSinger);
     router.post('/api/create-new-singer', SingerController.handleCreateNewSinger);
     router.put('/api/edit-singer', SingerController.handleEditSinger);
     router.delete('/api/delete-singer', SingerController.handleDeleteSinger);
@@ -73,9 +74,16 @@ let initWebRoutes = (app) => {
 
 
     router.get('/api/get-all-playlist', playlistController.handleGetAllPlaylist);
+    router.get('/api/get-all-playlistForDetail', playlistController.handleGetAllPlaylistForDetail);
+    router.get('/api/get-all-librytracks', playlistController.handleGetAlllibrytracks);
     router.post('/api/create-new-playlist', playlistController.handleCreateNewPlaylist);
+    router.post('/api/create-add-trackPlaylist', playlistController.handleAddTrackPlaylist);
+    router.get('/api/get-detail-playlist-by-id', playlistController.handleGetDetailPlaylist);
+    router.post('/api/create-add-librytracks', playlistController.handleAddTracklibrytracks);
     router.put('/api/edit-playlist', playlistController.handleEditPlaylist);
     router.delete('/api/delete-playlist', playlistController.handleDeletePlaylist);
+    router.delete('/api/delete-librytracks', playlistController.handleDeletelibrytracks);
+
 
 
 
@@ -102,7 +110,7 @@ let initWebRoutes = (app) => {
 
 
      router.post('/api/create-new-track-for-album', albumController.handleAddTrack);
-     //router.delete('/api/delete-track', albumController.handleDeleteTrack);
+     
  
  
      //--------------------Album_has_track---------------------//

@@ -69,6 +69,28 @@ let handleDeleteSinger = async(req, res) => {
     return res.status(200).json(message);
 }
 
+let handleGetDetailSinger = async(req, res) => {
+    try {
+            let track = await SINGERSevice.handleGetDetailSinger(req.query.id)
+            return res.status(200).json({
+                     errCode : 0,
+                    errMessage :'ok',
+                    track
+            })
+ 
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json(
+            {
+                errCode : -1,
+                errMessage :'Error from the server'
+                
+            }
+        )
+        
+    }
+}
+
 
 
 
@@ -81,4 +103,5 @@ module.exports ={
     handleCreateNewSinger: handleCreateNewSinger,
     handleEditSinger: handleEditSinger,
     handleDeleteSinger: handleDeleteSinger,
+    handleGetDetailSinger: handleGetDetailSinger,
 }

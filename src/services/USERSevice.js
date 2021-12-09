@@ -191,6 +191,7 @@ let deleteUser = (id) => {
 }
 
 let updateUserData = (data) => {
+
     return new Promise(async(resolve, reject) => {
         try {
             if(!data.id){
@@ -207,6 +208,8 @@ let updateUserData = (data) => {
                 user.username = data.username,
                 user.email = data.email,
                 user.phonenumber = data.phonenumber,
+                user.interfaceName = data.interfaceName,
+                user.avata = data.avatasinger,
                 await user.save();
                     // sername = data.username,
                     // mail = data.email,

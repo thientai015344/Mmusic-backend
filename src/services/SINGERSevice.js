@@ -153,6 +153,41 @@ let updateSingerData  = (data) => {
 
 }
 
+let handleGetDetailSinger = (singerId) => {
+
+    return new Promise(async(resolve, reject) =>{
+        try {
+              if(!singerId){
+                resolve({
+                    error: 1,
+                    errMessage:' missing required parameter'
+                })
+            }
+            else {
+                let track = await db.singers .findAll({
+
+                    where:{
+                        id : singerId
+                    },  
+                    actributes : ['namesong']
+                    , 
+                    include: [
+                        {model: db.tracks } 
+
+                     ],
+                     raw: true,
+                     nest: true,  
+                })
+                resolve(track);
+            }
+            resolve();      
+        } catch (error) {
+            reject(error);     
+        }
+    })
+    
+}
+
 
 let deleteSingerData = (id) => {
     return new Promise(async(resolve, reject) => {
@@ -191,5 +226,5 @@ module.exports = {
     updateSingerData: updateSingerData,
     deleteSingerData: deleteSingerData,
     getAllSingerForTrack : getAllSingerForTrack,
-    
+    handleGetDetailSinger: handleGetDetailSinger,
 }

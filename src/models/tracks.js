@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       tracks.belongsTo(models.singers,{ foreignKey: "singerId",});  
       tracks.hasMany(models.albumtracks,{foreignKey: "trackId",});
       tracks.hasMany(models.comments,{ foreignKey: "trackId",});
+      tracks.hasMany(models.librytracks,{foreignKey: "trackId",});
+      tracks.hasMany(models.playlisttracks,{foreignKey: "trackId",});
+
 
 
 

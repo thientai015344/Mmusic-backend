@@ -30,17 +30,17 @@ let CreateNewPlaylist = (data) =>{
                 
                 resolve({
                     errCode : 1, 
-                    errMessage: 'Singer đã tồn tại !'
+                    errMessage: 'playlistname đã tồn tại !'
                 })
                 
             }else{
                 
                 await db.playlists.create({
     
-                    playlistname: data.playlistname,
-                    // description: data.description,
-                    // avataplaylist: data.avataplaylist,
-
+                   
+                    playlistname : data.playlistname,
+                    imgplaylist : data.imgplaylist,
+                    userId : data.userId,
                 })
     
                 resolve({
@@ -57,27 +57,82 @@ let CreateNewPlaylist = (data) =>{
 }
 
 
-let getAllPlaylist = (playlistId) => {
 
-    return new Promise(async(resolve, reject) =>{
+let getAllPlaylist =(inputId) => {
+    return new Promise(async(resolve, reject) => {
         try {
-            let playlists = '';
-            if(playlistId === 'ALL') {
-                playlists = await db.playlists.findAll({
-                });        
-            }           
-            if(playlistId && playlistId !== 'ALL') {
-                playlists = await db.playlists.findOne({
-                    where:{id : playlistId},                   
-                })                  
+            
+
+            if(!inputId){
+                resolve({
+                    error: 1,
+                    errMessage:' missing required parameter'
+                })
             }
-            resolve(playlists);      
+            else {
+                let data = await db.user.findAll({
+
+                    where:{
+                        id : inputId
+                    },  
+                    actributes : ['username']
+                    , 
+                    include: [
+                        {model: db.playlists, actributes : ['id', 'playlistname', 'imgplaylist']  } 
+
+                     ],
+                     raw: true,
+                     nest: true,  
+                })
+                resolve({
+                    errCode: 0,
+                    data: data
+                })
+            }
+            
         } catch (error) {
-            reject(error);     
+
+            reject(error);
+            
         }
     })
-    
 }
+
+let handleGetAllPlaylistForDetail =(inputId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            
+
+            if(!inputId){
+                resolve({
+                    error: 1,
+                    errMessage:' missing required parameter'
+                })
+            }
+            else {
+                let data = await db.playlists.findOne({
+
+                    where:{
+                        id : inputId
+                    }, 
+                 
+                     raw: true,
+                     nest: true,  
+                })
+                resolve({
+                    errCode: 0,
+                    data: data
+                })
+            }
+            
+        } catch (error) {
+
+            reject(error);
+            
+        }
+    })
+}
+
 
 let updatePlaylistData  = (data) => {
     return new Promise(async(resolve, reject) => {
@@ -94,8 +149,8 @@ let updatePlaylistData  = (data) => {
             })
             if(playlist) {
                 playlist.playlistname = data.playlistname,
-                // playlist.description = data.description,
-                // playlist.avataplaylist = data.avataplaylist,
+                 playlist.imgplaylist = data.imgplaylist,
+
                 await playlist.save();
                 // playlistname: data.playlistname,
                 // description: data.description,
@@ -154,11 +209,172 @@ let deletePlaylistData = (id) => {
 }
 
 
+
+let handleAddTrackPlaylist = (data) =>{
+
+    return new Promise(async(resolve, reject) =>{
+
+        try {
+            
+            if(data){
+                
+                await db.playlisttracks.create({  
+                    trackId  : data.trackId,
+                    playlistId: data.playlistId,
+                }, 
+                )
+    
+                resolve({
+                    errCode :0 ,
+                    message : 'create succeed!'
+    
+                })
+
+            }
+            
+        }catch (error) {
+        reject (error); 
+            
+        }
+    })
+}
+
+
+let handleAddTracklibrytracks = (data) =>{
+
+    return new Promise(async(resolve, reject) =>{
+
+        try {
+            
+            if(data){
+                
+                await db.librytracks.create({  
+                    trackId  : data.trackId,
+                    userId: data.userId,
+                }, 
+                )
+    
+                resolve({
+                    errCode :0 ,
+                    message : 'create succeed!'
+    
+                })
+
+            }
+            
+        }catch (error) {
+        reject (error); 
+            
+        }
+    })
+}
+
+
+let handleGetDetailPlaylist = (playlistId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+
+            if(!playlistId){
+                resolve({ 
+                    error: 1,
+                    errMessage : 'missing parameter + ' + playlistId
+                })
+            }
+            else {
+                let detailPlaylist = await db.playlists.findAll({
+                    where: { id : playlistId },
+                  
+                    include: [
+                       {model: db.playlisttracks, include :[{model: db.tracks ,include: [db.singers]}]}
+                    ],
+                    raw: true,
+                    nest: true,
+                })
+
+                resolve(detailPlaylist) 
+            }
+        
+        } catch (error) {
+            console.log(error)
+            
+        }
+    })
+}
+
+
+let handleGetAlllibrytracks = (userId) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+
+            if(!userId){
+                resolve({ 
+                    error: 1,
+                    errMessage : 'missing parameter + ' + userId
+                })
+            }
+            else {
+                let detailPlaylist = await db.user.findAll({
+                    where: { id : userId },
+                    
+                    include: [
+                        {model: db.librytracks, include :[{model: db.tracks ,include: [db.singers]}]}
+                    ],
+                    raw: true,
+                    nest: true,
+                })
+
+                resolve(detailPlaylist) 
+            }
+        
+        } catch (error) {
+            reject(error)
+            
+        }
+    })
+}
+
+
+
+let handleDeletelibrytracks = (id) => {
+    return new Promise(async(resolve, reject) => {
+        let playlist = await db.librytracks.findOne({
+            where: { id: id}
+        })
+        if(!playlist){
+            resolve ({ 
+                errCode: 2,
+                errMessage : `The playlist isn't exist`
+            })
+        }
+       // awaxit playlist.destroy();
+       await db.librytracks.destroy({
+           where: { id: id}
+       });
+        
+        resolve({ 
+            errCode: 0,
+            message : `delete successfully'`
+
+
+        })
+
+        
+    })
+
+}
+
+
 module.exports = {
    
     getAllPlaylist: getAllPlaylist,
     CreateNewPlaylist:  CreateNewPlaylist,
     updatePlaylistData: updatePlaylistData,
     deletePlaylistData: deletePlaylistData,
+    handleAddTrackPlaylist:handleAddTrackPlaylist,
+    handleAddTracklibrytracks: handleAddTracklibrytracks,
+    handleGetDetailPlaylist: handleGetDetailPlaylist,
+    handleGetAlllibrytracks: handleGetAlllibrytracks,
+    handleDeletelibrytracks: handleDeletelibrytracks,
+    handleGetAllPlaylistForDetail: handleGetAllPlaylistForDetail,
     
 }
