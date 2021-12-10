@@ -115,6 +115,10 @@ let handleGetAllPlaylistForDetail =(inputId) => {
                     where:{
                         id : inputId
                     }, 
+                    include: [
+                        {model: db.user, } 
+
+                     ],
                  
                      raw: true,
                      nest: true,  
