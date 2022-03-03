@@ -28,6 +28,7 @@ let CreateNewTrack = (data) =>{
 
         try {
             let check = await checkTrackname(data.namesong);
+            console.log("chawck data mp3", data.filetrack)
             if(check==true){
                 
                 resolve({
@@ -226,7 +227,7 @@ let getCommentTrack =(inputId) => {
                     actributes : ['namesong']
                     , 
                     include: [
-                        {model: db.comments,  include: [db.user] } 
+                        {model: db.comments,  include: [db.user ]  } 
 
                      ],
                      raw: true,

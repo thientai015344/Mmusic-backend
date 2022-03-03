@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       comments.belongsTo(models.user,{ foreignKey: "userId",});
       comments.belongsTo(models.tracks,{foreignKey: "trackId",});
-
-
-
-      // define association here
     }
   };
   comments.init({
