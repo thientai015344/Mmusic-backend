@@ -5,3 +5,9 @@ add tables  in folder db
 
 
 
+
+
+run project    npm start 
+
+
+
